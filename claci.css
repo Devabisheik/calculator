@@ -1,3 +1,4 @@
+/* Theme toggle button */
 .themechanger {
     background-color: #5E81AC;
     height: 30px;
@@ -5,89 +6,123 @@
     border-radius: 13px;
     background-image: url("sun.jpeg");
     background-size: cover;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 100;
 }
 
+/* Heading Animation */
 h1 {
     text-align: center;
     animation-name: heading;
     animation-iteration-count: infinite;
     animation-duration: 5s;
-    font-size:xx-large;
+    font-size: xx-large;
     font-weight: bolder;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin-top: 40px;
 }
 
 @keyframes heading {
-    0% {
-        color: #2E3440;
-    }
-    25% {
-        color: #BF616A;
-    }
-    50% {
-        color: #5E81AC;
-    }
-    75% {
-        color: #A3BE8C;
-    }
-    100% {
-        color: #88C0D0;
-    }
+    0% { color: #2E3440; }
+    25% { color: #BF616A; }
+    50% { color: #5E81AC; }
+    75% { color: #A3BE8C; }
+    100% { color: #88C0D0; }
 }
 
+/* Dark mode styles */
 .darkmode {
     color: #ECEFF4;
-    .themechanger {
-        background-image: url("moon.jpeg");
-        background-size: contain;
-    }
-    .outerbox {
-        background-color: #2E3440;
-    }
     background-color: #2E3440;
-    .box {
-        border: 2px solid #D8DEE9;
-        color: #ECEFF4;
-    }
+}
+.darkmode .themechanger {
+    background-image: url("moon.jpeg");
+    background-size: contain;
+}
+.darkmode .outerbox {
+    background-color: #2E3440;
+}
+.darkmode .box, .darkmode .special, .darkmode .operator {
+    border: 2px solid #D8DEE9;
+    color: #ECEFF4;
+}
+.darkmode .result {
+    background-color: #4C566A;
+    color: #ECEFF4;
+}
+.darkmode #para {
+    background-color: #4C566A;
+    color: #ECEFF4;
 }
 
+/* Main layout setup */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #ECEFF4;
+    transition: all 0.4s ease;
+}
+
+/* Calculator wrapper */
 .outerbox {
     background-color: #ECEFF4;
     color: #2E3440;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 8px;
-    margin: 20px;
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 15px;
+    width: 90%;
+    box-sizing: border-box;
 }
 
-.box {
-    background-color: #88C0D0;
-    border-radius: 10px;
-    border: 2px solid #D8DEE9;
-    text-align: center;
-    height: 60px;
-    font-weight: bold;
-    font-size: larger;
-    color: #2E3440;
-}
-
+/* Display screen */
 .result {
     height: 50px;
     background-color: #E5E9F0;
-    grid-column-start: 1;
-    grid-column-end: 5;
+    grid-column: 1 / 5;
     font-size: xxx-large;
     font-weight: bolder;
     text-align: end;
     color: #2E3440;
-    margin: 10px 10px 10px;
+    margin: 10px 0;
+    padding-right: 10px;
     border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
+/* Buttons styling */
+.box, .special, .operator {
+    height: 60px;
+    border-radius: 10px;
+    border: 2px solid #D8DEE9;
+    font-weight: bold;
+    font-size: larger;
+    text-align: center;
+    color: #2E3440;
+}
+.box {
+    background-color: #88C0D0;
+}
+.special {
+    background-color: #BF616A;
+    color: white;
+}
+.operator {
+    background-color: #5E81AC;
+    color: white;
+}
 .boxequal {
     background-color: #A3BE8C;
     border-radius: 10px;
-    text-align: center;
     grid-column: 3 / 5;
     font-weight: bolder;
     font-size: xx-large;
@@ -95,60 +130,60 @@ h1 {
     color: white;
 }
 
-.box:hover {
-    background-color: #81A1C1;
+/* Hover effects */
+.box:hover, .operator:hover {
     transform: scale(1.05);
     transition: 0.2s;
 }
-
+.box:hover {
+    background-color: #81A1C1;
+}
+.operator:hover {
+    background-color: #81A1C1;
+}
+.special:hover {
+    background-color: #D08770;
+}
 .boxequal:hover {
     background-color: #8FBC8F;
 }
 
-.special {
-    background-color: #BF616A;
-    border-radius: 10px;
-    border: 2px solid #D8DEE9;
+/* History section */
+h2 {
     text-align: center;
-    height: 60px;
-    font-weight: bolder;
-    font-size: x-large;
-    color: white;
+    margin: 10px 0 0;
 }
-
-.special:hover {
-    background-color: #D08770;
-}
-
-.operator {
-    background-color: #5E81AC;
-    border-radius: 10px;
-    border: 2px solid #D8DEE9;
-    text-align: center;
-    height: 60px;
-    font-weight: bold;
-    font-size: larger;
-    color: white;
-}
-
-.operator:hover {
-    background-color: #81A1C1;
-    transform: scale(1.05);
-    transition: 0.2s;
-}
-
-body {
-    transition: all 0.4s ease;
-    background-color: #ECEFF4;
-}
-
 #para {
-    height: 60px;
-    color: #2E3440;
+    max-height: 100px;
+    overflow-y: auto;
+    margin: 10px 20px 20px;
+    padding: 10px;
     font-size: large;
     font-weight: bolder;
-    overflow-y: scroll;
     border: 2px double grey;
-    border-radius:5px;
+    border-radius: 5px;
     background-color: #D8DEE9;
+    color: #2E3440;
+}
+
+/* Responsive tweaks */
+@media (max-width: 500px) {
+    .outerbox {
+        grid-template-columns: repeat(4, 1fr);
+        width: 95%;
+        padding: 15px;
+    }
+
+    .box, .special, .operator, .boxequal {
+        font-size: medium;
+        height: 50px;
+    }
+
+    .result {
+        font-size: x-large;
+    }
+
+    h1 {
+        font-size: large;
+    }
 }
