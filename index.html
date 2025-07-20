@@ -7,11 +7,15 @@
 </head>
 
 <body id="theme">
-  <div class="themechanger" onclick="change()"></div>
-  <h1>SIMPLE CALCULATOR</h1>
+  <header>
+    <div class="themechanger" onclick="change()"></div>
+    <h1>SIMPLE CALCULATOR</h1>
+  </header>
   <div class="outerbox">
     <audio id="clickSound" src="click.mp3" preload="auto"></audio>
-    <div class="result" id="result"><span style="font-size: smaller;font-weight: lighter;font-style: italic;font-family:'Courier New', Courier, monospace;">START CALCULATING...</span></div>
+    <div class="result" id="result"><span
+        style="font-size: smaller;font-weight: lighter;font-style: italic;font-family:'Courier New', Courier, monospace;">START
+        CALCULATING...</span></div>
     <button type="button" class="special" onclick="clearResult()">C</button>
     <button type="button" class="special" onclick="appendToResult('(')">(</button>
     <button type="button" class="special" onclick="appendToResult(')')">)</button>
@@ -44,17 +48,19 @@
       =
     </button>
   </div>
-  <h2>HISTORY</h2>
-  <div id="para"></div>
+  <div>
+    <h2>HISTORY:</h2>
+    <div id="para"><span style="font-size: x-large;font-style: italic;font-weight: lighter;">scroll down to view all history</span></div>
+  </div>
   <script>
     let data = [];
     let currentInput = "";
 
     function history(value) {
-        const storage = document.createElement("p");
-        storage.textContent =value;
-        document.getElementById("para").appendChild(storage);
-      }
+      const storage = document.createElement("p");
+      storage.textContent = value;
+      document.getElementById("para").appendChild(storage);
+    }
     function change() {
       document.body.classList.toggle("darkmode");
     }
