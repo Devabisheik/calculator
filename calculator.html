@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="claci.css" />
+  <title>Calculator</title>
+</head>
+
+<body id="theme">
+  <div class="themechanger" onclick="change()"></div>
+  <h1>SIMPLE CALCULATOR</h1>
+  <div class="outerbox">
+    <audio id="clickSound" src="click.mp3" preload="auto"></audio>
+    <div class="result" id="result"><span style="font-size: smaller;font-weight: lighter;font-style: italic;font-family:'Courier New', Courier, monospace;">START CALCULATING...</span></div>
+    <button type="button" class="special" onclick="clearResult()">C</button>
+    <button type="button" class="special" onclick="appendToResult('(')">(</button>
+    <button type="button" class="special" onclick="appendToResult(')')">)</button>
+    <button type="button" class="operator" onclick="appendToResult('+')">
+      +
+    </button>
+    <button type="button" class="box" onclick="appendToResult('7')">7</button>
+    <button type="button" class="box" onclick="appendToResult('8')">8</button>
+    <button type="button" class="box" onclick="appendToResult('9')">9</button>
+    <button type="button" class="operator" onclick="appendToResult('-')">
+      -
+    </button>
+    <button type="button" class="box" onclick="appendToResult('4')">4</button>
+    <button type="button" class="box" onclick="appendToResult('5')">5</button>
+    <button type="button" class="box" onclick="appendToResult('6')">6</button>
+    <button type="button" class="operator" onclick="appendToResult('*')">
+      *
+    </button>
+    <button type="button" class="box" onclick="appendToResult('1')">1</button>
+    <button type="button" class="box" onclick="appendToResult('2')">2</button>
+    <button type="button" class="box" onclick="appendToResult('3')">3</button>
+    <button type="button" class="operator" onclick="appendToResult('/')">
+      /
+    </button>
+    <button type="button" class="box" onclick="appendToResult('0')">0</button>
+    <button type="button" class="special" onclick="deleteLastCharacter()">
+      DEL
+    </button>
+    <button type="button" class="boxequal" onclick="calculateResult()">
+      =
+    </button>
+  </div>
+  <h2>HISTORY</h2>
+  <div id="para"></div>
+  <script>
+    let data = [];
+    let currentInput = "";
+
+    function history(value) {
+        const storage = document.createElement("p");
+        storage.textContent =value;
+        document.getElementById("para").appendChild(storage);
+      }
+    function change() {
+      document.body.classList.toggle("darkmode");
+    }
+
+    function appendToResult(value) {
+      playClickSound();
+      currentInput += value;
+      document.getElementById("result").innerHTML = currentInput;
+    }
+
+    function clearResult() {
+      playClickSound();
+      currentInput = "";
+      document.getElementById("result").innerHTML = currentInput;
+    }
+
+    function deleteLastCharacter() {
+      playClickSound();
+      currentInput = currentInput.slice(0, -1);
+      document.getElementById("result").innerHTML = currentInput;
+    }
+
+    function calculateResult() {
+      try {
+        const result = eval(currentInput);
+        document.getElementById("result").innerHTML =
+          Number(result).toFixed(2);
+        history(`${currentInput} = ${Number(result).toFixed(2)}`);
+        currentInput = "";
+      } catch (e) {
+        document.getElementById("result").innerHTML = "Error";
+        currentInput = "";
+        console.log(e.message);
+      }
+    }
+    function playClickSound() {
+      document.getElementById("clickSound").currentTime = 0; // rewind
+      document.getElementById("clickSound").play();
+    }
+
+    document.addEventListener("keydown", function (e) {
+      const key = e.key;
+
+      if ("0123456789+-*/().".includes(key)) {
+        appendToResult(key);
+      } else if (key === "Enter") {
+        e.preventDefault();
+        calculateResult();
+      } else if (key === "Backspace") {
+        e.preventDefault();
+        deleteLastCharacter();
+      } else if (key === "Escape") {
+        clearResult();
+      }
+    });
+  </script>
+</body>
+
+</html>
